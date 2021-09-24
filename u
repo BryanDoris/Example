@@ -1,9 +1,3 @@
---[[
-Window
---]]
---end
---Properties:
-
 local Library = {}
 
 function Library:CreateWindow(Gametitle)
@@ -22,9 +16,11 @@ function Library:CreateWindow(Gametitle)
 	local OutlineGrowBottom = Instance.new("ImageLabel")
 	local OutlineGrowLeft = Instance.new("ImageLabel")
 	local OutlineGrowRight = Instance.new("ImageLabel")
-	
+
+	--Properties:
+
 	BlueWindow.Name = "BlueWindow"
-	BlueWindow.Parent = game.CoreGui
+	BlueWindow.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	BlueWindow.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	Dragger.Name = "Dragger"
@@ -87,7 +83,7 @@ function Library:CreateWindow(Gametitle)
 	GAMETITLETXT.Position = UDim2.new(-0.333333343, 0, 1.26666665, 0)
 	GAMETITLETXT.Size = UDim2.new(0, 140, 0, 20)
 	GAMETITLETXT.Font = Enum.Font.ArialBold
-	GAMETITLETXT.Text = Gametitle
+	GAMETITLETXT.Text = "Pet Simulator X"
 	GAMETITLETXT.TextColor3 = Color3.fromRGB(230, 230, 230)
 	GAMETITLETXT.TextSize = 14.000
 
@@ -153,7 +149,7 @@ function Library:CreateWindow(Gametitle)
 
 	-- Scripts:
 
-	local function SJTQDQ_fake_script() -- Dragger.DraggingScript 
+	local function RPHX_fake_script() -- Dragger.DraggingScript 
 		local script = Instance.new('LocalScript', Dragger)
 
 		local UserInputService = game:GetService("UserInputService")
@@ -196,8 +192,8 @@ function Library:CreateWindow(Gametitle)
 			end
 		end)
 	end
-	coroutine.wrap(SJTQDQ_fake_script)()
-	local function HGQCCN_fake_script() -- BlueHubLogoTXT.RainbowBlueHubTXT 
+	coroutine.wrap(RPHX_fake_script)()
+	local function BFDW_fake_script() -- BlueHubLogoTXT.RainbowBlueHubTXT 
 		local script = Instance.new('LocalScript', BlueHubLogoTXT)
 
 		--Scripted by brad5203(2017)
@@ -232,8 +228,8 @@ function Library:CreateWindow(Gametitle)
 			script.Parent.TextColor3 = Color3.fromHSV(hue/360, SAT, LUM)
 		end
 	end
-	coroutine.wrap(HGQCCN_fake_script)()
-	local function UVFPOCV_fake_script() -- BlueWindow.leftAltToToggleUI 
+	coroutine.wrap(BFDW_fake_script)()
+	local function BAUH_fake_script() -- BlueWindow.leftAltToToggleUI 
 		local script = Instance.new('LocalScript', BlueWindow)
 
 		-- We must get the UserInputService before we can use it
@@ -254,7 +250,7 @@ function Library:CreateWindow(Gametitle)
 
 		UserInputService.InputBegan:Connect(onInputBegan)
 	end
-	coroutine.wrap(UVFPOCV_fake_script)()
+	coroutine.wrap(BAUH_fake_script)()
 end
 
 return Library
