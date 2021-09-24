@@ -83,7 +83,7 @@ function Library:CreateWindow(Gametitle)
 	GAMETITLETXT.Position = UDim2.new(-0.333333343, 0, 1.26666665, 0)
 	GAMETITLETXT.Size = UDim2.new(0, 140, 0, 20)
 	GAMETITLETXT.Font = Enum.Font.ArialBold
-	GAMETITLETXT.Text = "Pet Simulator X"
+	GAMETITLETXT.Text = Gametitle
 	GAMETITLETXT.TextColor3 = Color3.fromRGB(230, 230, 230)
 	GAMETITLETXT.TextSize = 14.000
 
