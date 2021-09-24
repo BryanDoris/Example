@@ -251,6 +251,49 @@ function Library:CreateWindow(Gametitle)
 		UserInputService.InputBegan:Connect(onInputBegan)
 	end
 	coroutine.wrap(BAUH_fake_script)()
+	
+	local Window = {}
+	function Window:CreateTab(tabname)
+		local TabButton = Instance.new("TextButton")
+		local SelectedImageTab = Instance.new("ImageLabel")
+
+		TabButton.Name = "TabButton"
+		TabButton.Parent = game.StarterGui.BlueWindow.Dragger.LeftWindow.TabWindow
+		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabButton.BackgroundTransparency = 1.000
+		TabButton.BorderSizePixel = 0
+		TabButton.Size = UDim2.new(0, 200, 0, 50)
+		TabButton.Font = Enum.Font.GothamSemibold
+		TabButton.Text = tabname
+		TabButton.TextColor3 = Color3.fromRGB(230, 230, 230)
+		TabButton.TextSize = 14.000
+
+		SelectedImageTab.Name = "SelectedImageTab"
+		SelectedImageTab.Parent = TabButton
+		SelectedImageTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		SelectedImageTab.BackgroundTransparency = 1.000
+		SelectedImageTab.BorderSizePixel = 0
+		SelectedImageTab.Position = UDim2.new(0.142857149, 0, 0.933333337, 0)
+		SelectedImageTab.Size = UDim2.new(0, 100, 0, 2)
+		SelectedImageTab.Image = "rbxassetid://7549716848"
+		SelectedImageTab.ImageTransparency = 1.000
+
+		-- Scripts:
+
+		local function GHKJEY_fake_script() -- TabButton.TabButtonScript 
+			local script = Instance.new('LocalScript', TabButton)
+
+			script.Parent.MouseButton1Click:Connect(function()
+				for i, Image in pairs(script.Parent.Parent:GetDescendants()) do
+					if Image:IsA("ImageLabel") then
+						Image.ImageTransparency = 1
+					end
+				end
+				script.Parent.SelectedImageTab.ImageTransparency = 0
+			end)
+		end
+		coroutine.wrap(GHKJEY_fake_script)()
+	end
 end
 
 return Library
