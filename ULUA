@@ -294,6 +294,7 @@ function Library:CreateWindow(Gametitle)
 		end
 		coroutine.wrap(GHKJEY_fake_script)()
 	end
+	return Window
 end
 
 return Library
