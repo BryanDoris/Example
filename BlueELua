@@ -5,6 +5,7 @@ function Library:CreateWindow(Gametitle)
 	local Dragger = Instance.new("Frame")
 	local TabOutLine = Instance.new("ImageLabel")
 	local Window = Instance.new("Frame")
+	local WindowUIGridLayout = Instance.new("UIGridLayout")
 	local LeftWindow = Instance.new("Frame")
 	local Logo = Instance.new("ImageLabel")
 	local BlueHubLogoTXT = Instance.new("TextLabel")
@@ -45,6 +46,13 @@ function Library:CreateWindow(Gametitle)
 	Window.BorderSizePixel = 0
 	Window.Position = UDim2.new(0.191249996, 0, 0, 0)
 	Window.Size = UDim2.new(0, 647, 0, 550)
+	
+	WindowUIGridLayout.Name = "WindowUIGridLayout"
+	WindowUIGridLayout.Parent = Window
+	WindowUIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	WindowUIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	WindowUIGridLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	WindowUIGridLayout.CellSize = UDim2.new(0, 300, 0, 530)
 
 	LeftWindow.Name = "LeftWindow"
 	LeftWindow.Parent = Dragger
@@ -256,8 +264,12 @@ function Library:CreateWindow(Gametitle)
 	function Window:CreateTab(tabname)
 		local TabButton = Instance.new("TextButton")
 		local SelectedImageTab = Instance.new("ImageLabel")
+		local ContainerFor = Instance.new("Folder")
 
-		TabButton.Name = "TabButton"
+		ContainerFor.Name = tabname
+		ContainerFor.Parent = Window
+
+		TabButton.Name = tabname
 		TabButton.Parent = TabWindow
 		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		TabButton.BackgroundTransparency = 1.000
@@ -267,6 +279,13 @@ function Library:CreateWindow(Gametitle)
 		TabButton.Text = tabname
 		TabButton.TextColor3 = Color3.fromRGB(230, 230, 230)
 		TabButton.TextSize = 14.000
+		TabButton.MouseButton1Click:Connect(function()
+			for i, v in pairs(ContainerFor:GetChildren()) do
+				if v:IsA("Frame") then
+					v.Visible = true
+				end
+			end
+		end)
 
 		SelectedImageTab.Name = "SelectedImageTab"
 		SelectedImageTab.Parent = TabButton
@@ -280,7 +299,7 @@ function Library:CreateWindow(Gametitle)
 
 		-- Scripts:
 
-		local function GHKJEY_fake_script() -- TabButton.TabButtonScript 
+		local function TIJRA_fake_script() -- TabButton.TabButtonScript 
 			local script = Instance.new('LocalScript', TabButton)
 
 			script.Parent.MouseButton1Click:Connect(function()
@@ -290,9 +309,80 @@ function Library:CreateWindow(Gametitle)
 					end
 				end
 				script.Parent.SelectedImageTab.ImageTransparency = 0
+				for i, contain in pairs(script.Parent.Parent.Parent.Parent.Window:GetChildren()) do
+					if contain:IsA("Folder") then
+						for _, Vis in pairs(contain:GetChildren()) do
+							if Vis:IsA("Frame") then
+								Vis.Visible = false
+							end
+						end
+					end
+				end
 			end)
 		end
-		coroutine.wrap(GHKJEY_fake_script)()
+		coroutine.wrap(TIJRA_fake_script)()
+		
+		local Tab = {}
+		
+		function Tab:CreateSection()
+			local Container = Instance.new("Frame")
+			local ContainerUIGridLayout = Instance.new("UIGridLayout")
+			
+			Container.Name = "Container"
+			Container.Parent = ContainerFor
+			Container.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Container.BorderSizePixel = 0
+			Container.Position = UDim2.new(0.01236476, 0, 0.0181818176, 0)
+			Container.Size = UDim2.new(0, 300, 0, 530)
+
+			ContainerUIGridLayout.Name = "ContainerUIGridLayout"
+			ContainerUIGridLayout.Parent = Container
+			ContainerUIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			ContainerUIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			ContainerUIGridLayout.CellSize = UDim2.new(0, 280, 0, 20)
+			
+			local Section = {}
+			function Section:CreateButton(buttonname)
+
+				local ButtonFrame = Instance.new("Frame")
+				local Button = Instance.new("TextButton")
+				local ButtonUICorner = Instance.new("UICorner")
+
+				ButtonFrame.Name = "ButtonFrame"
+				ButtonFrame.Parent = Container
+				ButtonFrame.BackgroundColor3 = Color3.fromRGB(43, 90, 177)
+				ButtonFrame.Size = UDim2.new(0, 100, 0, 100)
+
+				Button.Name = "Button"
+				Button.Parent = ButtonFrame
+				Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Button.BackgroundTransparency = 1.000
+				Button.BorderSizePixel = 0
+				Button.Size = UDim2.new(0, 280, 0, 20)
+				Button.Font = Enum.Font.GothamSemibold
+				Button.Text = buttonname
+				Button.TextColor3 = Color3.fromRGB(230, 230, 230)
+				Button.TextSize = 14.000
+
+				ButtonUICorner.CornerRadius = UDim.new(0, 4)
+				ButtonUICorner.Name = "ButtonUICorner"
+				ButtonUICorner.Parent = ButtonFrame
+
+				-- Scripts:
+
+				local function ILKEOI_fake_script() -- Button.ButtonScript 
+					local script = Instance.new('LocalScript', Button)
+
+					script.Parent.MouseButton1Click:Connect(function()
+						script.Parent:TweenPosition(UDim2.new(0, 0,0, 0),"InOut","Quad",0.2,true)
+					end)
+				end
+				coroutine.wrap(ILKEOI_fake_script)()
+
+			end
+			return Section
+		end
+		return Tab
 	end
 	return Window
 end
