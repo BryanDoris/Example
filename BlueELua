@@ -280,9 +280,13 @@ function Library:CreateWindow(Gametitle)
 		TabButton.TextColor3 = Color3.fromRGB(230, 230, 230)
 		TabButton.TextSize = 14.000
 		TabButton.MouseButton1Click:Connect(function()
-			for i, v in pairs(ContainerFor:GetChildren()) do
-				if v:IsA("Frame") then
-					v.Visible = true
+			for i, v in pairs(Window:GetChildren()) do
+				if v:IsA("Folder") then
+					for _, fr in pairs(v:GetChildren()) do
+						if fr:IsA("Frame") then
+							fr.Visible = false
+						end
+					end
 				end
 			end
 		end)
@@ -306,16 +310,6 @@ function Library:CreateWindow(Gametitle)
 				for i, Image in pairs(script.Parent.Parent:GetDescendants()) do
 					if Image:IsA("ImageLabel") then
 						Image.ImageTransparency = 1
-					end
-				end
-				script.Parent.SelectedImageTab.ImageTransparency = 0
-				for i, contain in pairs(script.Parent.Parent.Parent.Parent.Window:GetChildren()) do
-					if contain:IsA("Folder") then
-						for _, Vis in pairs(contain:GetChildren()) do
-							if Vis:IsA("Frame") then
-								Vis.Visible = false
-							end
-						end
 					end
 				end
 			end)
@@ -342,7 +336,7 @@ function Library:CreateWindow(Gametitle)
 			ContainerUIGridLayout.CellSize = UDim2.new(0, 280, 0, 20)
 			
 			local Section = {}
-			function Section:CreateButton(buttonname)
+			function Section:CreateButton(buttonname,callbackbutton)
 
 				local ButtonFrame = Instance.new("Frame")
 				local Button = Instance.new("TextButton")
@@ -363,22 +357,13 @@ function Library:CreateWindow(Gametitle)
 				Button.Text = buttonname
 				Button.TextColor3 = Color3.fromRGB(230, 230, 230)
 				Button.TextSize = 14.000
+				Button.MouseButton1Click:Connect(function()
+					pcall(callbackbutton)
+				end)
 
 				ButtonUICorner.CornerRadius = UDim.new(0, 4)
 				ButtonUICorner.Name = "ButtonUICorner"
 				ButtonUICorner.Parent = ButtonFrame
-
-				-- Scripts:
-
-				local function ILKEOI_fake_script() -- Button.ButtonScript 
-					local script = Instance.new('LocalScript', Button)
-
-					script.Parent.MouseButton1Click:Connect(function()
-						script.Parent:TweenPosition(UDim2.new(0, 0,0, 0),"InOut","Quad",0.2,true)
-					end)
-				end
-				coroutine.wrap(ILKEOI_fake_script)()
-
 			end
 			return Section
 		end
